@@ -29,6 +29,7 @@ const io = new Server(httpServer, {
 
 app.get("/get-cookie", (req, res) => {
   console.log("reaching..");
+  console.log({ requestCookie: req.cookies });
   const jwtToken = jwtSignIn({ username: "raghu" });
   res.cookie("access_token", jwtToken, {
     maxAge: 36000000,
