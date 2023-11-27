@@ -8,6 +8,16 @@ configDotenv();
 import cors from "cors";
 const app = express();
 const httpServer = createServer(app);
+app.use(cookieParser());
+
+app.use(
+  cors({
+    origin: [process.env.FRONTEND_ORIGIN],
+    credentials: true,
+    methods: ["GET", "POST"],
+  })
+);
+
 const io = new Server(httpServer, {
   cors: {
     origin: [process.env.FRONTEND_ORIGIN],
@@ -16,14 +26,6 @@ const io = new Server(httpServer, {
   },
   cookie: true,
 });
-app.use(
-  cors({
-    origin: [process.env.FRONTEND_ORIGIN],
-    credentials: true,
-    methods: ["GET", "POST"],
-  })
-);
-app.use(cookieParser());
 
 app.get("/get-cookie", (req, res) => {
   console.log("reaching..");
