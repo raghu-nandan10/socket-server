@@ -14,6 +14,7 @@ const io = new Server(httpServer, {
     credentials: true,
     methods: ["GET", "POST"],
   },
+  cookie: true,
 });
 app.use(
   cors({
