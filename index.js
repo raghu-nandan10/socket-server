@@ -14,7 +14,6 @@ app.use(
   cors({
     origin: [process.env.FRONTEND_ORIGIN],
     credentials: true,
-    methods: ["GET", "POST"],
   })
 );
 
@@ -22,19 +21,19 @@ const io = new Server(httpServer, {
   cors: {
     origin: [process.env.FRONTEND_ORIGIN],
     credentials: true,
-    methods: ["GET", "POST"],
   },
   cookie: true,
 });
 
 app.get("/get-cookie", (req, res) => {
   console.log("reaching..");
-  console.log({ requestCookie: req.cookies });
+  console.log(req.cookies);
   const jwtToken = jwtSignIn({ username: "raghu" });
   res.cookie("access_token", jwtToken, {
     maxAge: 36000000,
     secure: "true",
     httpOnly: "true",
+    sameSite: "none",
   });
   res.json({ message: "works" });
 });
